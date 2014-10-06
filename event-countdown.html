@@ -1,0 +1,84 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+Element displays the number of Years/Days/Hours/Minutes/Seconds until a given
+`to` date from the current date
+
+##### Example
+
+    <event-countdown to="2014-10-26"></event-countdown>
+
+@element event-countdown
+@blurb Element displays the number of Years/Days/Hours/Minutes/Seconds until a
+given `to` date from the current date
+@homepage http://jamstooks.github.io/event-countdown
+-->
+<polymer-element name="event-countdown" attributes="to">
+  <script src="../moment/moment.js"></script>
+
+  <template>
+
+    <link rel="stylesheet" href="event-countdown.css" />
+
+    <p id='offset'>{{offset}}</p>
+
+  </template>
+
+  <script>
+
+    Polymer('event-countdown', {
+
+      /**
+       * The `to` attribute is the date to count down to
+       *
+       * @attribute to
+       * @type string (ISO 8601)
+       */
+      to: null,
+
+      /**
+       * The `timeout` property determines how often the date is checked
+       *
+       * @property timeout
+       * @type integer
+       */
+      timeout: null,
+
+      /**
+       * The `offset` property stores the offset from the current time until
+       * `to`
+       *
+       * @property offset
+       * @type string
+       */
+      offset: "",
+
+      /**
+       * The `ready` method kicks off when the element is ready and stars an
+       * interval that will update the offset periodically
+       *
+       * @return null
+       */
+      ready: function() {
+        // setInterval(this.toChanged, this.timeout);
+      },
+
+      /**
+       * The `toChanged` method handles any updates to the changed method
+       *
+       * @return null
+       */
+      toChanged: function() {
+        if(this.to != null && this.to != undefined) {
+          this.offset = moment(this.to).fromNow();
+        }
+        else {
+          this.offset = "";
+        }
+      }
+
+    });
+
+  </script>
+
+</polymer-element>
